@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.4
+#!/usr/bin/env python3
 
 import argparse
 import re
@@ -9,7 +9,8 @@ import logging
 import sys
 import schedule
 import paho.mqtt.client as mqtt
-
+from beamer import acer as beamercodes
+code = beamercodes.clubbeamer()
 
 def on_connect(client, userdata, flags, rc):
     global beamer_state
@@ -34,25 +35,25 @@ def on_message(client, userdata, message):
     msg = message.payload.decode("utf-8")
     log.debug('received message: {}'.format(msg))
     if (msg == "on"):
-        ser.write(b"* 0 IR 001\r")
+        ser.write(code.set['on'])
 
     if (msg == "off"):
-        ser.write(b"* 0 IR 002\r")
+        ser.write(code.set['off'])
 
     if (msg == "vga"):
-        ser.write(b"* 0 IR 015\r")
+        ser.write(code.set['vga'])
 
     if (msg == "hdmi1"):
-        ser.write(b"* 0 IR 015\r")
+        ser.write(code.set['hdmi1'][0])
         time.sleep(1)
-        ser.write(b"* 0 IR 050\r")
+        ser.write(code.set['hdmi1'][1])
 
     if (msg == "hdmi2"):
-        ser.write(b"* 0 IR 015\r")
+        ser.write(code.set['hdmi2'][0])
         time.sleep(0.5)
-        ser.write(b"* 0 IR 050\r")
+        ser.write(code.set['hdmi2'][1])
         time.sleep(0.5)
-        ser.write(b"* 0 IR 050\r")
+        ser.write(code.set['hdmi2'][2])
 
 
 def readBeamerState():
