@@ -90,7 +90,7 @@ def readInputSource():
 def inputSourceChanged():
     global input_source
     if (input_source != readInputSource()):
-        log.debug('Input source has changed')
+        log.debug('Input source has changed to {}'.format(readInputSource() ))
         input_source = readInputSource()
         return True
     else:
