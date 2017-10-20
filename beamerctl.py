@@ -60,9 +60,9 @@ def readBeamerState():
     ser.write(b"* 0 Lamp ?\r")
     read_val = ser.read(size=64)
     if(re.match(b'.*Lamp.1.*', read_val)):
-        status = 1
+        status = "on"
     else:
-        status = 0
+        status = "off"
     return status
 
 
