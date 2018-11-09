@@ -1,0 +1,5 @@
+# bind serial adapter for beamer-control to ttyUSB0
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="FTFMSA54", GROUP="dialout", SYMLINK+="ttyUSB0"
+
+# bind serial adapter for borg16-control to ttyUSB1
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="FTFSQZNR", GROUP="dialout", SYMLINK+="ttyUSB1"
