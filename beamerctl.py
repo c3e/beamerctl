@@ -19,12 +19,12 @@ def on_connect(client, userdata, flags, rc):
     log.debug("Connected with result code " + str(rc))
 
     beamer_state = readBeamerState()
-    client.publish("foobar/oben/lounge/beamer/status", beamer_state, qos=1, retain=True)
+    client.publish("foobar/oben/cantina/beamer/status", beamer_state, qos=1, retain=True)
 
     input_source = readInputSource()
-    client.publish("foobar/oben/lounge/beamer/source", input_source, qos=1, retain=True)
+    client.publish("foobar/oben/cantina/beamer/source", input_source, qos=1, retain=True)
 
-    client.subscribe("foobar/oben/lounge/beamer/action")
+    client.subscribe("foobar/oben/cantina/beamer/action")
 
 
 def on_publish(client, userdata, mid):
@@ -117,8 +117,8 @@ def getArgs():
 
 def periodicUpdate():
     log.debug('run scheduled statusupdates')
-    client.publish("foobar/oben/lounge/beamer/status", readBeamerState(), qos=1, retain=True)
-    client.publish("foobar/oben/lounge/beamer/source", readInputSource(), qos=1, retain=True)
+    client.publish("foobar/oben/cantina/beamer/status", readBeamerState(), qos=1, retain=True)
+    client.publish("foobar/oben/cantina/beamer/source", readInputSource(), qos=1, retain=True)
 
 
 if __name__ == '__main__':
@@ -160,10 +160,10 @@ if __name__ == '__main__':
         schedule.run_pending()
 
         if (inputSourceChanged()):
-            client.publish("foobar/oben/lounge/beamer/source",
+            client.publish("foobar/oben/cantina/beamer/source",
                            input_source, qos=1,  retain=True) 
 
         if (beamerStatusChanged()):
-            client.publish("foobar/oben/lounge/beamer/status",
+            client.publish("foobar/oben/cantina/beamer/status",
                            beamer_state, qos=1,  retain=True)
         time.sleep(1)
